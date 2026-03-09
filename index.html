@@ -10,7 +10,6 @@
 
     <div class="max-w-md mx-auto mt-6">
         <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Rutina de Hoy</h1>
-        
         <div id="contenedor-ejercicios"></div>
     </div>
 
@@ -20,7 +19,6 @@
         const contenedor = document.getElementById("contenedor-ejercicios");
         let tarjetasHTML = "";
 
-        // Leemos la variable 'ejerciciosDeHoy' que viene de tu rutinas.js
         ejerciciosDeHoy.forEach(ejercicio => {
             tarjetasHTML += `
             <div class="bg-white rounded-3xl shadow-sm p-6 mb-5 border border-gray-100">
@@ -43,7 +41,7 @@
                     </div>
                 </div>
                 
-                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md" onclick="alert('¡Has completado una serie de ${ejercicio.nombre}!')">
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md" onclick="marcarCompletado(this)">
                     Guardar Serie
                 </button>
             </div>
@@ -51,6 +49,21 @@
         });
 
         contenedor.innerHTML = tarjetasHTML;
+
+        // NUEVA FUNCIÓN: Cambia el aspecto del botón al pulsarlo
+        function marcarCompletado(boton) {
+            // Cambiamos el texto
+            boton.innerHTML = "¡Completado! ✅";
+            
+            // Le quitamos las clases de color azul de Tailwind
+            boton.classList.remove("bg-blue-600", "hover:bg-blue-700");
+            
+            // Le ponemos las clases de color verde y cambiamos el cursor
+            boton.classList.add("bg-green-500", "hover:bg-green-600", "cursor-not-allowed");
+            
+            // Lo desactivamos para no poder hacer clic 2 veces
+            boton.disabled = true;
+        }
     </script>
 
     <script src="navbar.js"></script>
