@@ -6,19 +6,43 @@
     <title>Mi Trainingym Personal</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-4">
+<body class="bg-gray-50 min-h-screen p-4 font-sans">
 
-    <div class="max-w-md mx-auto mt-10">
+    <div class="max-w-md mx-auto mt-6">
         
-        <h1 class="text-3xl font-bold text-blue-600 text-center mb-6">
-            Mi Entrenamiento
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">
+            Rutina de Hoy
         </h1>
         
-        <p class="text-center text-gray-600 bg-white p-4 rounded-xl shadow-sm">
-            ¡Hola mundo! Aquí irá mi primera rutina.
-        </p>
+        <div class="bg-white rounded-3xl shadow-sm p-6 mb-5 border border-gray-100">
+            
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Press de Banca</h2>
+                    <p class="text-sm text-gray-500 mt-1">Pecho • 4 Series</p>
+                </div>
+                <div class="bg-blue-50 text-2xl rounded-2xl p-3">
+                    💪
+                </div>
+            </div>
 
-    </div>
+            <div class="flex gap-4 mb-5">
+                <div class="w-1/2">
+                    <label class="text-xs text-gray-500 font-semibold mb-2 block uppercase tracking-wider">Peso (kg)</label>
+                    <input type="number" placeholder="Ej: 60" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                </div>
+                <div class="w-1/2">
+                    <label class="text-xs text-gray-500 font-semibold mb-2 block uppercase tracking-wider">Reps</label>
+                    <input type="number" placeholder="Ej: 10" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                </div>
+            </div>
+
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md">
+                Guardar Serie
+            </button>
+            
+        </div>
+        </div>
 
 </body>
 </html>
