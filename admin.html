@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Trainingym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 font-sans">
+
+    <div class="max-w-md mx-auto mt-6">
+        
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">
+            Panel Admin ⚙️
+        </h1>
+        
+        <div class="bg-white rounded-3xl shadow-sm p-6 mb-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 mb-5">Nuevo Ejercicio</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Nombre</label>
+                    <input type="text" placeholder="Ej: Curl de Bíceps" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="w-1/2">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Músculo</label>
+                        <input type="text" placeholder="Ej: Brazos" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">ID (Foto)</label>
+                        <input type="number" placeholder="Ej: 4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Series</label>
+                        <input type="number" placeholder="4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Reps</label>
+                        <input type="number" placeholder="10" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Emoji</label>
+                        <input type="text" placeholder="💪" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none">
+                    </div>
+                </div>
+
+                <button class="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md mt-2">
+                    ➕ Guardar Ejercicio
+                </button>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">Editar Rutina</h2>
+        
+        <div class="bg-white rounded-3xl shadow-sm p-4 mb-5 border border-gray-100">
+            
+            <div class="flex justify-between items-center p-3 border-b border-gray-100 last:border-0">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-lg">1️⃣</div>
+                    <div>
+                        <p class="font-bold text-gray-800 text-sm">Press de Banca</p>
+                        <p class="text-xs text-gray-500">Pecho</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-gray-50 hover:bg-blue-50 text-blue-600 rounded-lg transition">✏️</button>
+                    <button class="p-2 bg-gray-50 hover:bg-red-50 text-red-600 rounded-lg transition">🗑️</button>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center p-3 border-b border-gray-100 last:border-0">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-lg">2️⃣</div>
+                    <div>
+                        <p class="font-bold text-gray-800 text-sm">Dominadas</p>
+                        <p class="text-xs text-gray-500">Espalda</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 bg-gray-50 hover:bg-blue-50 text-blue-600 rounded-lg transition">✏️</button>
+                    <button class="p-2 bg-gray-50 hover:bg-red-50 text-red-600 rounded-lg transition">🗑️</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="navbar.js"></script>
+</body>
+</html>
