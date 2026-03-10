@@ -5,94 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - Trainingym</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="rutinas.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen p-4 font-sans pb-24">
 
     <div class="max-w-md mx-auto mt-6">
         
-        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">
-            Panel Admin ⚙️
-        </h1>
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Panel Admin ⚙️</h1>
         
         <div class="bg-white rounded-3xl shadow-sm p-6 mb-8 border border-gray-100">
-            <h2 class="text-xl font-bold text-gray-800 mb-5">Nuevo Ejercicio</h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-5">Añadir Ejercicio</h2>
             
             <div class="space-y-4">
                 <div>
                     <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Nombre</label>
-                    <input type="text" id="inputNombre" placeholder="Ej: Curl de Bíceps" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    <input type="text" id="inputNombre" placeholder="Ej: Curl de Bíceps" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 transition">
                 </div>
                 
                 <div class="flex gap-4">
                     <div class="w-1/2">
                         <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Músculo</label>
-                        <input type="text" id="inputMusculo" placeholder="Ej: Brazos" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        <input type="text" id="inputMusculo" placeholder="Ej: Brazos" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 transition">
                     </div>
                     <div class="w-1/2">
                         <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">ID (Foto)</label>
-                        <input type="number" id="inputId" placeholder="Ej: 4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        <input type="number" id="inputId" placeholder="Ej: 4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 transition">
                     </div>
                 </div>
 
                 <div class="flex gap-4">
                     <div class="w-1/3">
                         <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Series</label>
-                        <input type="number" id="inputSeries" placeholder="4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        <input type="number" id="inputSeries" placeholder="4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none transition">
                     </div>
                     <div class="w-1/3">
                         <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Reps</label>
-                        <input type="number" id="inputReps" placeholder="10" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        <input type="number" id="inputReps" placeholder="10" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none transition">
                     </div>
                     <div class="w-1/3">
                         <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Emoji</label>
-                        <input type="text" id="inputEmoji" placeholder="💪" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                        <input type="text" id="inputEmoji" placeholder="💪" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none transition">
                     </div>
                 </div>
 
-                <button id="btnGuardar" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md mt-2">
-                    ⚡ Generar Código
+                <button onclick="añadirEjercicio()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3.5 rounded-xl transition shadow-md mt-2">
+                    ➕ Añadir a la lista
                 </button>
             </div>
         </div>
 
-        <div class="bg-gray-900 rounded-3xl shadow-sm p-6 mb-8 border border-gray-800">
-            <h2 class="text-white font-bold mb-3">💻 Tu código generado:</h2>
-            <p class="text-xs text-gray-400 mb-3">Pégalo en tu archivo rutinas.js (dentro de los corchetes [ ])</p>
-            
-            <textarea id="codigoGenerado" class="w-full h-24 bg-gray-800 text-green-400 p-3 rounded-xl text-sm font-mono outline-none resize-none" readonly placeholder="Aquí aparecerá la magia..."></textarea>
-            
-            <button id="btnCopiar" class="w-full mt-3 bg-gray-700 hover:bg-gray-600 text-white text-sm font-bold py-2.5 rounded-xl transition duration-200 flex items-center justify-center gap-2">
-                📋 Copiar al portapapeles
-            </button>
-        </div>
-
-        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">Ejercicios Actuales</h2>
-        
-        <div class="bg-white rounded-3xl shadow-sm p-4 border border-gray-100 mb-8">
-            <div class="flex justify-between items-center p-3">
-                <div class="flex items-center gap-3">
-                    <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-lg">1️⃣</div>
-                    <div>
-                        <p class="font-bold text-gray-800 text-sm">Press de Banca</p>
-                        <p class="text-xs text-gray-500">Pecho</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <span class="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-md">Solo lectura</span>
-                </div>
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">Rutina en Memoria</h2>
+        <div class="bg-white rounded-3xl shadow-sm p-4 border border-gray-100 mb-8" id="listaMemoria">
             </div>
+
+        <div class="bg-blue-50 rounded-3xl p-6 text-center border border-blue-100">
+            <p class="text-sm text-blue-800 font-medium mb-4">Cuando termines de editar, descarga tu nuevo archivo y súbelo a GitHub.</p>
+            <button onclick="descargarArchivo()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition shadow-lg text-lg flex items-center justify-center gap-2">
+                ⬇️ Descargar rutinas.js
+            </button>
         </div>
 
     </div>
 
     <script>
-        const btnGuardar = document.getElementById('btnGuardar');
-        const btnCopiar = document.getElementById('btnCopiar');
-        const cajaCodigo = document.getElementById('codigoGenerado');
-        
-        // Cuando pulsamos Generar Código
-        btnGuardar.addEventListener('click', function() {
-            // 1. Recogemos los valores (si el campo está vacío, pone un valor por defecto)
+        // 1. Copiamos tus datos originales a la "memoria de trabajo"
+        // (Usamos JSON.parse para hacer una copia exacta y no tocar el original)
+        let miRutinaTemporal = JSON.parse(JSON.stringify(ejerciciosDeHoy));
+
+        // 2. Función para dibujar la lista en pantalla
+        function actualizarPantalla() {
+            const contenedorLista = document.getElementById('listaMemoria');
+            contenedorLista.innerHTML = ''; // Vaciamos la lista visual
+
+            if (miRutinaTemporal.length === 0) {
+                contenedorLista.innerHTML = '<p class="text-gray-400 text-center text-sm p-4">La lista está vacía.</p>';
+                return;
+            }
+
+            miRutinaTemporal.forEach((ejercicio, index) => {
+                contenedorLista.innerHTML += `
+                <div class="flex justify-between items-center p-3 border-b border-gray-100 last:border-0">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-lg">${ejercicio.emoji}</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">${ejercicio.nombre}</p>
+                            <p class="text-xs text-gray-500">${ejercicio.musculo} • ID Foto: ${ejercicio.id}</p>
+                        </div>
+                    </div>
+                    <button onclick="borrarEjercicio(${index})" class="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition text-xs font-bold">Borrar</button>
+                </div>
+                `;
+            });
+        }
+
+        // 3. Función para añadir lo del formulario a la memoria
+        function añadirEjercicio() {
             const nombre = document.getElementById('inputNombre').value || "Nuevo Ejercicio";
             const musculo = document.getElementById('inputMusculo').value || "General";
             const idFoto = document.getElementById('inputId').value || "1";
@@ -100,38 +108,49 @@
             const reps = document.getElementById('inputReps').value || "10";
             const emoji = document.getElementById('inputEmoji').value || "💪";
 
-            // 2. Generamos la línea de código JS
-            const nuevaLinea = `{ id: ${idFoto}, nombre: "${nombre}", musculo: "${musculo}", series: ${series}, repeticiones: ${reps}, peso: 0, emoji: "${emoji}" },`;
+            // Metemos el nuevo ejercicio en nuestra variable
+            miRutinaTemporal.push({
+                id: parseInt(idFoto),
+                nombre: nombre,
+                musculo: musculo,
+                series: parseInt(series),
+                repeticiones: parseInt(reps),
+                peso: 0,
+                emoji: emoji
+            });
 
-            // 3. Lo metemos en la caja negra
-            cajaCodigo.value = nuevaLinea;
+            // Limpiamos el formulario (opcional pero queda bien)
+            document.getElementById('inputNombre').value = '';
             
-            // Efecto visual de confirmación en el botón
-            btnGuardar.innerHTML = "¡Código Generado! ✅";
-            btnGuardar.classList.replace('bg-blue-600', 'bg-green-500');
-            btnGuardar.classList.replace('hover:bg-blue-700', 'hover:bg-green-600');
-            
-            setTimeout(() => {
-                btnGuardar.innerHTML = "⚡ Generar Código";
-                btnGuardar.classList.replace('bg-green-500', 'bg-blue-600');
-                btnGuardar.classList.replace('hover:bg-green-600', 'hover:bg-blue-700');
-            }, 2000);
-        });
+            // Refrescamos la lista visual
+            actualizarPantalla();
+        }
 
-        // Cuando pulsamos Copiar al Portapapeles
-        btnCopiar.addEventListener('click', function() {
-            if(cajaCodigo.value !== "") {
-                // Selecciona y copia el texto
-                cajaCodigo.select();
-                navigator.clipboard.writeText(cajaCodigo.value);
-                
-                // Efecto visual
-                btnCopiar.innerHTML = "¡Copiado! ✅";
-                setTimeout(() => {
-                    btnCopiar.innerHTML = "📋 Copiar al portapapeles";
-                }, 2000);
-            }
-        });
+        // 4. Función para borrar un ejercicio de la memoria
+        function borrarEjercicio(indice) {
+            miRutinaTemporal.splice(indice, 1); // Quita 1 elemento en la posición "indice"
+            actualizarPantalla();
+        }
+
+        // 5. LA MAGIA: Descargar el archivo
+        function descargarArchivo() {
+            // Convertimos nuestra variable de nuevo a formato de texto JavaScript
+            const textoJavaScript = "const ejerciciosDeHoy = " + JSON.stringify(miRutinaTemporal, null, 4) + ";";
+            
+            // Creamos un archivo virtual (Blob)
+            const archivoVirtual = new Blob([textoJavaScript], { type: 'text/javascript' });
+            
+            // Creamos un enlace invisible, le ponemos el archivo virtual y simulamos un clic
+            const enlace = document.createElement('a');
+            enlace.href = URL.createObjectURL(archivoVirtual);
+            enlace.download = 'rutinas.js'; // El nombre con el que se bajará
+            document.body.appendChild(enlace);
+            enlace.click();
+            document.body.removeChild(enlace);
+        }
+
+        // Al abrir la página, dibujamos la lista por primera vez
+        actualizarPantalla();
     </script>
 
     <script src="navbar.js"></script>
