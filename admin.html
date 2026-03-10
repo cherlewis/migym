@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - Trainingym</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="rutinas.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen p-4 font-sans pb-24">
@@ -14,8 +13,8 @@
         
         <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Panel Admin ⚙️</h1>
         
-        <div class="bg-white rounded-3xl shadow-sm p-6 mb-8 border border-gray-100">
-            <h2 class="text-xl font-bold text-gray-800 mb-5">Añadir Ejercicio</h2>
+        <div class="bg-white rounded-3xl shadow-sm p-6 mb-8 border border-gray-100" id="zonaFormulario">
+            <h2 class="text-xl font-bold text-gray-800 mb-5" id="tituloFormulario">Añadir Ejercicio</h2>
             
             <div class="space-y-4">
                 <div>
@@ -49,9 +48,14 @@
                     </div>
                 </div>
 
-                <button onclick="añadirEjercicio()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3.5 rounded-xl transition shadow-md mt-2">
-                    ➕ Añadir a la lista
-                </button>
+                <div class="flex gap-2 mt-4">
+                    <button id="btnCancelar" onclick="cancelarEdicion()" class="hidden w-1/3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3.5 rounded-xl transition shadow-sm">
+                        Cancelar
+                    </button>
+                    <button id="btnAccion" onclick="guardarOañadirEjercicio()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3.5 rounded-xl transition shadow-md">
+                        ➕ Añadir a la lista
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -69,14 +73,14 @@
     </div>
 
     <script>
-        // 1. Copiamos tus datos originales a la "memoria de trabajo"
-        // (Usamos JSON.parse para hacer una copia exacta y no tocar el original)
         let miRutinaTemporal = JSON.parse(JSON.stringify(ejerciciosDeHoy));
+        
+        // NUEVA VARIABLE: "null" significa que estamos creando. Si tiene un número, estamos editando.
+        let indiceEdicion = null; 
 
-        // 2. Función para dibujar la lista en pantalla
         function actualizarPantalla() {
             const contenedorLista = document.getElementById('listaMemoria');
-            contenedorLista.innerHTML = ''; // Vaciamos la lista visual
+            contenedorLista.innerHTML = ''; 
 
             if (miRutinaTemporal.length === 0) {
                 contenedorLista.innerHTML = '<p class="text-gray-400 text-center text-sm p-4">La lista está vacía.</p>';
@@ -86,21 +90,72 @@
             miRutinaTemporal.forEach((ejercicio, index) => {
                 contenedorLista.innerHTML += `
                 <div class="flex justify-between items-center p-3 border-b border-gray-100 last:border-0">
-                    <div class="flex items-center gap-3">
-                        <div class="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-lg">${ejercicio.emoji}</div>
-                        <div>
-                            <p class="font-bold text-gray-800 text-sm">${ejercicio.nombre}</p>
-                            <p class="text-xs text-gray-500">${ejercicio.musculo} • ID Foto: ${ejercicio.id}</p>
+                    <div class="flex items-center gap-3 w-1/2">
+                        <div class="bg-gray-100 w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0">${ejercicio.emoji}</div>
+                        <div class="truncate">
+                            <p class="font-bold text-gray-800 text-sm truncate">${ejercicio.nombre}</p>
+                            <p class="text-xs text-gray-500 truncate">${ejercicio.musculo} • ID: ${ejercicio.id}</p>
                         </div>
                     </div>
-                    <button onclick="borrarEjercicio(${index})" class="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition text-xs font-bold">Borrar</button>
+                    <div class="flex gap-2">
+                        <button onclick="prepararEdicion(${index})" class="p-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition text-xs font-bold">Editar</button>
+                        <button onclick="borrarEjercicio(${index})" class="p-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg transition text-xs font-bold">Borrar</button>
+                    </div>
                 </div>
                 `;
             });
         }
 
-        // 3. Función para añadir lo del formulario a la memoria
-        function añadirEjercicio() {
+        // NUEVA FUNCIÓN: Rellena el formulario con los datos a editar
+        function prepararEdicion(indice) {
+            indiceEdicion = indice; // Memorizamos qué número de la lista estamos tocando
+            const ejercicio = miRutinaTemporal[indice];
+
+            // Rellenamos las cajas
+            document.getElementById('inputNombre').value = ejercicio.nombre;
+            document.getElementById('inputMusculo').value = ejercicio.musculo;
+            document.getElementById('inputId').value = ejercicio.id;
+            document.getElementById('inputSeries').value = ejercicio.series;
+            document.getElementById('inputReps').value = ejercicio.repeticiones;
+            document.getElementById('inputEmoji').value = ejercicio.emoji;
+
+            // Cambiamos el aspecto del formulario
+            document.getElementById('tituloFormulario').innerText = "✏️ Editando Ejercicio";
+            
+            const btn = document.getElementById('btnAccion');
+            btn.innerHTML = "💾 Guardar Cambios";
+            btn.classList.replace('bg-gray-900', 'bg-blue-600');
+            btn.classList.replace('hover:bg-black', 'hover:bg-blue-700');
+            
+            // Mostramos el botón de cancelar y hacemos que ocupe menos el de guardar
+            document.getElementById('btnCancelar').classList.remove('hidden');
+            btn.classList.remove('w-full');
+            btn.classList.add('w-2/3');
+
+            // Hacemos scroll hacia arriba suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // NUEVA FUNCIÓN: Cancela la edición y vacía el formulario
+        function cancelarEdicion() {
+            indiceEdicion = null;
+            document.querySelectorAll('input').forEach(input => input.value = ''); // Vacía todo
+            
+            // Restauramos el diseño del formulario
+            document.getElementById('tituloFormulario').innerText = "Añadir Ejercicio";
+            
+            const btn = document.getElementById('btnAccion');
+            btn.innerHTML = "➕ Añadir a la lista";
+            btn.classList.replace('bg-blue-600', 'bg-gray-900');
+            btn.classList.replace('hover:bg-blue-700', 'hover:bg-black');
+            
+            document.getElementById('btnCancelar').classList.add('hidden');
+            btn.classList.remove('w-2/3');
+            btn.classList.add('w-full');
+        }
+
+        // FUNCIÓN MODIFICADA: Ahora decide si añade uno nuevo o actualiza el existente
+        function guardarOañadirEjercicio() {
             const nombre = document.getElementById('inputNombre').value || "Nuevo Ejercicio";
             const musculo = document.getElementById('inputMusculo').value || "General";
             const idFoto = document.getElementById('inputId').value || "1";
@@ -108,8 +163,7 @@
             const reps = document.getElementById('inputReps').value || "10";
             const emoji = document.getElementById('inputEmoji').value || "💪";
 
-            // Metemos el nuevo ejercicio en nuestra variable
-            miRutinaTemporal.push({
+            const nuevoObjeto = {
                 id: parseInt(idFoto),
                 nombre: nombre,
                 musculo: musculo,
@@ -117,42 +171,41 @@
                 repeticiones: parseInt(reps),
                 peso: 0,
                 emoji: emoji
-            });
+            };
 
-            // Limpiamos el formulario (opcional pero queda bien)
-            document.getElementById('inputNombre').value = '';
-            
-            // Refrescamos la lista visual
+            if (indiceEdicion !== null) {
+                // MODO EDICIÓN: Sobrescribimos el existente
+                miRutinaTemporal[indiceEdicion] = nuevoObjeto;
+                cancelarEdicion(); // Restauramos el formulario
+            } else {
+                // MODO AÑADIR: Lo metemos al final de la lista
+                miRutinaTemporal.push(nuevoObjeto);
+                document.querySelectorAll('input').forEach(input => input.value = ''); // Solo vaciamos
+            }
+
             actualizarPantalla();
         }
 
-        // 4. Función para borrar un ejercicio de la memoria
         function borrarEjercicio(indice) {
-            miRutinaTemporal.splice(indice, 1); // Quita 1 elemento en la posición "indice"
+            miRutinaTemporal.splice(indice, 1);
             actualizarPantalla();
+            // Si borramos el que estábamos editando, cancelamos la edición
+            if (indiceEdicion === indice) cancelarEdicion();
         }
 
-        // 5. LA MAGIA: Descargar el archivo
         function descargarArchivo() {
-            // Convertimos nuestra variable de nuevo a formato de texto JavaScript
             const textoJavaScript = "const ejerciciosDeHoy = " + JSON.stringify(miRutinaTemporal, null, 4) + ";";
-            
-            // Creamos un archivo virtual (Blob)
             const archivoVirtual = new Blob([textoJavaScript], { type: 'text/javascript' });
-            
-            // Creamos un enlace invisible, le ponemos el archivo virtual y simulamos un clic
             const enlace = document.createElement('a');
             enlace.href = URL.createObjectURL(archivoVirtual);
-            enlace.download = 'rutinas.js'; // El nombre con el que se bajará
+            enlace.download = 'rutinas.js'; 
             document.body.appendChild(enlace);
             enlace.click();
             document.body.removeChild(enlace);
         }
 
-        // Al abrir la página, dibujamos la lista por primera vez
         actualizarPantalla();
     </script>
-
     <script src="navbar.js"></script>
 
 </body>
