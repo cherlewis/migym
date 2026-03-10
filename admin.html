@@ -1,38 +1,140 @@
-<div class="bg-gray-900 rounded-3xl shadow-sm p-6 mb-24 border border-gray-800">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Trainingym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 font-sans pb-24">
+
+    <div class="max-w-md mx-auto mt-6">
+        
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">
+            Panel Admin ⚙️
+        </h1>
+        
+        <div class="bg-white rounded-3xl shadow-sm p-6 mb-8 border border-gray-100">
+            <h2 class="text-xl font-bold text-gray-800 mb-5">Nuevo Ejercicio</h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Nombre</label>
+                    <input type="text" id="inputNombre" placeholder="Ej: Curl de Bíceps" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                </div>
+                
+                <div class="flex gap-4">
+                    <div class="w-1/2">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Músculo</label>
+                        <input type="text" id="inputMusculo" placeholder="Ej: Brazos" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">ID (Foto)</label>
+                        <input type="number" id="inputId" placeholder="Ej: 4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Series</label>
+                        <input type="number" id="inputSeries" placeholder="4" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Reps</label>
+                        <input type="number" id="inputReps" placeholder="10" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                    <div class="w-1/3">
+                        <label class="text-xs text-gray-500 font-semibold mb-1 block uppercase tracking-wider">Emoji</label>
+                        <input type="text" id="inputEmoji" placeholder="💪" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition">
+                    </div>
+                </div>
+
+                <button id="btnGuardar" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition duration-200 shadow-md mt-2">
+                    ⚡ Generar Código
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-gray-900 rounded-3xl shadow-sm p-6 mb-8 border border-gray-800">
             <h2 class="text-white font-bold mb-3">💻 Tu código generado:</h2>
-            <p class="text-xs text-gray-400 mb-3">Copia esto y pégalo en tu archivo rutinas.js</p>
-            <textarea id="codigoGenerado" class="w-full h-32 bg-gray-800 text-green-400 p-3 rounded-xl text-sm font-mono outline-none" readonly></textarea>
+            <p class="text-xs text-gray-400 mb-3">Pégalo en tu archivo rutinas.js (dentro de los corchetes [ ])</p>
+            
+            <textarea id="codigoGenerado" class="w-full h-24 bg-gray-800 text-green-400 p-3 rounded-xl text-sm font-mono outline-none resize-none" readonly placeholder="Aquí aparecerá la magia..."></textarea>
+            
+            <button id="btnCopiar" class="w-full mt-3 bg-gray-700 hover:bg-gray-600 text-white text-sm font-bold py-2.5 rounded-xl transition duration-200 flex items-center justify-center gap-2">
+                📋 Copiar al portapapeles
+            </button>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-800 mb-4 px-2">Ejercicios Actuales</h2>
+        
+        <div class="bg-white rounded-3xl shadow-sm p-4 border border-gray-100 mb-8">
+            <div class="flex justify-between items-center p-3">
+                <div class="flex items-center gap-3">
+                    <div class="bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center text-lg">1️⃣</div>
+                    <div>
+                        <p class="font-bold text-gray-800 text-sm">Press de Banca</p>
+                        <p class="text-xs text-gray-500">Pecho</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-md">Solo lectura</span>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // Le damos vida al botón de "Guardar Ejercicio" (asegúrate de ponerle id="btnGuardar" a tu botón del HTML)
-        const btnGuardar = document.querySelector('button'); // Coge el primer botón (el de guardar)
+        const btnGuardar = document.getElementById('btnGuardar');
+        const btnCopiar = document.getElementById('btnCopiar');
+        const cajaCodigo = document.getElementById('codigoGenerado');
         
+        // Cuando pulsamos Generar Código
         btnGuardar.addEventListener('click', function() {
-            // 1. Recogemos lo que has escrito en el formulario (basado en los placeholder del diseño anterior)
-            const inputs = document.querySelectorAll('input');
-            const nombre = inputs[0].value || "Nuevo Ejercicio";
-            const musculo = inputs[1].value || "General";
-            const idFoto = inputs[2].value || "1";
-            const series = inputs[3].value || "4";
-            const reps = inputs[4].value || "10";
-            const emoji = inputs[5].value || "💪";
+            // 1. Recogemos los valores (si el campo está vacío, pone un valor por defecto)
+            const nombre = document.getElementById('inputNombre').value || "Nuevo Ejercicio";
+            const musculo = document.getElementById('inputMusculo').value || "General";
+            const idFoto = document.getElementById('inputId').value || "1";
+            const series = document.getElementById('inputSeries').value || "4";
+            const reps = document.getElementById('inputReps').value || "10";
+            const emoji = document.getElementById('inputEmoji').value || "💪";
 
-            // 2. Generamos el texto exacto con formato JavaScript
+            // 2. Generamos la línea de código JS
             const nuevaLinea = `{ id: ${idFoto}, nombre: "${nombre}", musculo: "${musculo}", series: ${series}, repeticiones: ${reps}, peso: 0, emoji: "${emoji}" },`;
 
-            // 3. Lo mostramos en la caja negra para que lo copies
-            const cajaCodigo = document.getElementById('codigoGenerado');
+            // 3. Lo metemos en la caja negra
             cajaCodigo.value = nuevaLinea;
             
-            // Efecto visual: el botón cambia un segundo
+            // Efecto visual de confirmación en el botón
             btnGuardar.innerHTML = "¡Código Generado! ✅";
-            setTimeout(() => btnGuardar.innerHTML = "➕ Guardar Ejercicio", 2000);
+            btnGuardar.classList.replace('bg-blue-600', 'bg-green-500');
+            btnGuardar.classList.replace('hover:bg-blue-700', 'hover:bg-green-600');
+            
+            setTimeout(() => {
+                btnGuardar.innerHTML = "⚡ Generar Código";
+                btnGuardar.classList.replace('bg-green-500', 'bg-blue-600');
+                btnGuardar.classList.replace('hover:bg-green-600', 'hover:bg-blue-700');
+            }, 2000);
+        });
+
+        // Cuando pulsamos Copiar al Portapapeles
+        btnCopiar.addEventListener('click', function() {
+            if(cajaCodigo.value !== "") {
+                // Selecciona y copia el texto
+                cajaCodigo.select();
+                navigator.clipboard.writeText(cajaCodigo.value);
+                
+                // Efecto visual
+                btnCopiar.innerHTML = "¡Copiado! ✅";
+                setTimeout(() => {
+                    btnCopiar.innerHTML = "📋 Copiar al portapapeles";
+                }, 2000);
+            }
         });
     </script>
 
     <script src="navbar.js"></script>
+
 </body>
 </html>
